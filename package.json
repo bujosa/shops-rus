@@ -1,0 +1,30 @@
+{
+  "name": "shopsrus",
+  "version": "1.0.0",
+  "description": "ShopsRUs is a retail warehouse currently in operation. They would like to offer discounts to their clients on all your web / mobile platforms. They need to build a set of APIs that provide capabilities to calculate discounts, generate total costs, and generate invoices for customers",
+  "main": "index.js",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express-validator": "^6.12.2",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.0.9",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bujosa/ShopsRus.git"
+  },
+  "author": "Bujosa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bujosa/ShopsRus/issues"
+  },
+  "homepage": "https://github.com/bujosa/ShopsRus#readme"
+}
