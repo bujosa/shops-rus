@@ -15,7 +15,8 @@
     "jest": "^27.2.5"
   },
   "scripts": {
-    "test": "npm run test"
+    "test": "jest",
+    "coverage": "jest --coverage"
   },
   "repository": {
     "type": "git",
