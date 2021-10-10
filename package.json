@@ -11,9 +11,11 @@
     "mongoose": "^6.0.9",
     "uuid": "^8.3.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "jest": "^27.2.5"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run test"
   },
   "repository": {
     "type": "git",
