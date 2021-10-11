@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { app } from "./app";
+require("dotenv").config();
 
 const start = async () => {
   if (!process.env.MONGO_URL) {
