@@ -7,13 +7,17 @@ const start = async () => {
     throw new Error("MONGO_URL must be defined");
   }
 
+  if (!process.env.PORT) {
+    throw new Error("PORT must be defined");
+  }
+
   try {
     await mongoose.connect(process.env.MONGO_URL);
     console.log("Conneting to de database");
   } catch (error) {}
 
-  app.listen(3000, () => {
-    console.log(`Listening on port 3000`);
+  app.listen(process.env.PORT, () => {
+    console.log(`Listening on port ${process.env.PORT}`);
   });
 };
 
