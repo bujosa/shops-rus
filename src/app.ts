@@ -9,7 +9,7 @@ const app = express();
 app.set("trust proxy", true);
 app.use(json());
 
-//Customers
+//Users
 app.use(createUserRouter);
 
 app.all("*", async (req, res) => {
