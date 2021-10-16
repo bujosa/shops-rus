@@ -12,6 +12,8 @@ app.use(json());
 //Users
 app.use(createUserRouter);
 
+//Invoice
+
 app.all("*", async (req, res) => {
   throw new NotFoundError();
 });
