@@ -12,13 +12,17 @@ export interface IUserDoc extends mongoose.Document {
 
 const userSchema = new mongoose.Schema(
   {
-    name: {
+    fullName: {
       type: String,
       required: true,
     },
-    lastName: {
-      type: String,
-      required: true,
+    affiliate: {
+      type: Boolean,
+      default: false,
+    },
+    employee: {
+      type: Boolean,
+      default: false,
     },
   },
   {
@@ -26,20 +30,11 @@ const userSchema = new mongoose.Schema(
       transform(doc, ret) {
         ret.id = ret._id;
         delete ret._id;
-        delete ret.password;
         delete ret.__v;
       },
     },
   }
 );
-
-// userSchema.pre("save", async function (done) {
-//   if (this.isModified("password")) {
-//     const hashed = await Password.toHash(this.get("password"));
-//     this.set("password", hashed);
-//   }
-//   done();
-// });
 
 userSchema.statics.build = (user: IUser) => {
   return new User(user);
