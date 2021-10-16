@@ -14,6 +14,8 @@ app.use(createUserRouter);
 
 //Invoice
 
+//Discounts
+
 app.all("*", async (req, res) => {
   throw new NotFoundError();
 });
