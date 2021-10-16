@@ -24,6 +24,10 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    createdAt: {
+      type: String,
+      default: new Date().toISOString(),
+    },
   },
   {
     toJSON: {
