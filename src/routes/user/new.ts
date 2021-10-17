@@ -8,21 +8,30 @@ const router = express.Router();
 router.post(
   "/api/users",
   [
-    body("title").not().isEmpty().withMessage("Title is required"),
-    body("price")
-      .isFloat({ gt: 0 })
-      .withMessage("Price must be greater than 0"),
+    body("fullName").not().isEmpty().withMessage("fullName is required"),
+    body("affiliate")
+      .isBoolean()
+      .optional()
+      .withMessage("affiliate needs to be Boolean"),
+    body("employee")
+      .isBoolean()
+      .optional()
+      .withMessage("affiliate needs to be Boolean"),
   ],
   validateRequest,
   async (req: Request, res: Response) => {
-    const { title, price } = req.body;
-    const ticket = User.build({
-      title,
-      price,
-    });
-    await ticket.save();
+    const { fullName, employee, affiliate } = req.body;
 
-    res.status(201).send(ticket);
+    const user = User.build({
+      fullName,
+      employee,
+      affiliate,
+      createdAt: new Date().toISOString(),
+    });
+
+    await user.save();
+
+    res.status(201).send(user);
   }
 );
 

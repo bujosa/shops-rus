@@ -6,8 +6,10 @@ export interface IUserModel extends mongoose.Model<IUserDoc> {
 }
 
 export interface IUserDoc extends mongoose.Document {
-  email: string;
-  password: string;
+  fullName: string;
+  affiliate: boolean;
+  employee: boolean;
+  createdAt: string;
 }
 
 const userSchema = new mongoose.Schema(
