@@ -1,7 +1,7 @@
-import { TypeOfItems } from "../enums/type-of-items.enum";
+import { ItemType } from "../enums/item-type.enum";
 
 export interface IItem {
   name: string;
   price: number;
-  type: TypeOfItems;
+  type: ItemType;
 }
