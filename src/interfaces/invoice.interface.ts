@@ -1,4 +1,4 @@
-import { IDiscounts } from "./discounts.interface";
+import { IDiscounts } from "./discount.interface";
 import { IItem } from "./item.interface";
 import { IUser } from "./user.interface";
 
