@@ -1,5 +1,6 @@
 export interface IUser {
-  name: string;
-  lastName: string;
-  email: string;
+  fullName: string;
+  affiliate: boolean;
+  employee: boolean;
+  createdAt: string;
 }
