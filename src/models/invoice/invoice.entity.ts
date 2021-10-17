@@ -1,31 +1,40 @@
-import mongoose from "mongoose";
-import { ItemType } from "../../enums/item-type.enum";
-import { IItem } from "../../interfaces/item.interface";
+import mongoose, { Schema } from "mongoose";
+import { IInvoice } from "../../interfaces/invoice.interface";
 
 export interface IInvoiceModel extends mongoose.Model<IInvoice> {
-  build(item: IItem): IItemDoc;
+  build(invoice: IInvoice): IInvoiceDoc;
 }
 
-export interface IItemDoc extends mongoose.Document {
+export interface IInvoiceDoc extends mongoose.Document {
   name: string;
   price: number;
   type: string;
 }
 
-const itemSchema = new mongoose.Schema(
+const invoiceSchema = new mongoose.Schema(
   {
-    name: {
-      type: String,
+    discount: {
       required: true,
+      type: Schema.Types.ObjectId,
+      ref: "Discount",
+      autopopulate: { maxDepth: 1 },
     },
-    price: {
+    client: {
+      required: true,
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      autopopulate: { maxDepth: 1 },
+    },
+    items: {
+      required: true,
+      type: [Schema.Types.ObjectId],
+      default: [],
+      ref: "Item",
+      autopopulate: { maxDepth: 1 },
+    },
+    total: {
+      required: true,
       type: Number,
-      required: true,
-    },
-    type: {
-      required: true,
-      type: String,
-      enum: Object.values(ItemType),
     },
     createdAt: {
       type: String,
@@ -43,10 +52,15 @@ const itemSchema = new mongoose.Schema(
   }
 );
 
-itemSchema.statics.build = (item: IItem) => {
-  return new Item(item);
+invoiceSchema.plugin(require("mongoose-autopopulate"));
+
+invoiceSchema.statics.build = (invoice: IInvoice) => {
+  return new Invoice(invoice);
 };
 
-const Item = mongoose.model<IItemDoc, IItemModel>("Item", itemSchema);
+const Invoice = mongoose.model<IInvoiceDoc, IInvoiceModel>(
+  "invoice",
+  invoiceSchema
+);
 
-export { Item };
+export { Invoice };
