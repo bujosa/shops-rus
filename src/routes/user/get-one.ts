@@ -24,4 +24,4 @@ router.get("/api/users/:name", async (req: Request, res: Response) => {
   return res.send(user);
 });
 
-export { router as showUserRouter };
+export { router as getOneUserRouter };
