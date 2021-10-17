@@ -1,4 +1,4 @@
-export enum TypeOfItems {
+export enum ItemType {
   FOOD = "food",
   CLEANING_PRODUCTS = "cleaning_products",
   MEDICINE = "medicine",
