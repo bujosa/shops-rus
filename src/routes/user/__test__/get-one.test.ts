@@ -2,7 +2,6 @@ import request from "supertest";
 import * as faker from "faker";
 import { User } from "../../../models/user/user.entity";
 import { app } from "../../../app";
-import { NotFoundError } from "../../../errors/not-found-error";
 
 const buildEntity = async () => {
   const entity = User.build({
