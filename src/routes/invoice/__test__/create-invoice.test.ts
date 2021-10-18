@@ -48,15 +48,13 @@ describe("POST /api/invoices", () => {
       .send(invoice)
       .expect(201);
 
-    console.log(fetchedInvoices);
-
     expect(fetchedInvoices.total).toEqual(total);
   });
 
   it(" returns a 400 an invalid type", async () => {
     const invoice = {
       client: faker.lorem.word(),
-      items: [faker.lorem.word],
+      items: [],
     };
 
     await request(app).post("/api/invoices").send(invoice).expect(400);

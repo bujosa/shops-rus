@@ -6,6 +6,7 @@ export const calculateTotal = (products: IItem[], client: IUser): number => {
 
   products.forEach((product) => {
     if (productType(product)) {
+      total += product.price;
       return;
     }
 
