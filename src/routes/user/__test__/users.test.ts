@@ -15,7 +15,7 @@ const buildEntity = async () => {
 };
 
 describe("GET /api/users", () => {
-  it("Returns all tickets", async () => {
+  it("Returns all users", async () => {
     await buildEntity();
     await buildEntity();
     await buildEntity();
