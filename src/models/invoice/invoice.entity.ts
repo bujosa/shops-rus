@@ -6,6 +6,7 @@ export interface IInvoiceModel extends mongoose.Model<IInvoice> {
 }
 
 export interface IInvoiceDoc extends mongoose.Document {
+  id: string;
   client: string;
   items: string[];
   total: number;
@@ -13,6 +14,9 @@ export interface IInvoiceDoc extends mongoose.Document {
 
 const invoiceSchema = new mongoose.Schema(
   {
+    id: {
+      type: String,
+    },
     client: {
       required: true,
       type: Schema.Types.ObjectId,
@@ -38,7 +42,6 @@ const invoiceSchema = new mongoose.Schema(
   {
     toJSON: {
       transform(doc, ret) {
-        ret.id = ret._id;
         delete ret._id;
         delete ret.__v;
       },
@@ -52,8 +55,14 @@ invoiceSchema.statics.build = (invoice: IInvoice) => {
   return new Invoice(invoice);
 };
 
+invoiceSchema.pre("save", function (next) {
+  this.id = this._id;
+
+  next();
+});
+
 const Invoice = mongoose.model<IInvoiceDoc, IInvoiceModel>(
-  "invoice",
+  "Invoice",
   invoiceSchema
 );
 
