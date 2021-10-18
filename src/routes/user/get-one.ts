@@ -6,9 +6,9 @@ const getOneUserRouterById = express.Router();
 const getOneUserRouterByName = express.Router();
 
 getOneUserRouterById.get(
-  "/api/users/:id",
+  "/api/user/:id",
   async (req: Request, res: Response) => {
-    const user = await User.findById(req.params.id);
+    const user = await User.findOne({ id: req.params.id });
 
     if (!user) {
       throw new NotFoundError();
@@ -19,10 +19,9 @@ getOneUserRouterById.get(
 );
 
 getOneUserRouterByName.get(
-  "/api/users/:name",
+  "/api/user/get/:name",
   async (req: Request, res: Response) => {
     const user = await User.findOne({ fullName: req.params.name });
-
     if (!user) {
       throw new NotFoundError();
     }
