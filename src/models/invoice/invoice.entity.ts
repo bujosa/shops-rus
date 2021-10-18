@@ -52,7 +52,6 @@ const invoiceSchema = new mongoose.Schema(
 invoiceSchema.plugin(require("mongoose-autopopulate"));
 
 invoiceSchema.statics.build = (invoice: IInvoice) => {
-  console.log(invoice.total);
   return new Invoice(invoice);
 };
 
