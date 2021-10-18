@@ -13,12 +13,12 @@ const buildEntity = async () => {
   return await entity.save();
 };
 
-describe("GET /api/discount/:id", () => {
+describe("GET /api/discount/:type", () => {
   it("fetches the discount", async () => {
     const discount = await buildEntity();
 
     const { body: fetchedDiscount } = await request(app)
-      .get(`/api/discounts/${discount.id}`)
+      .get(`/api/discounts/${discount.type}`)
       .send({})
       .expect(200);
 
