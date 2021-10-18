@@ -12,6 +12,9 @@ import {
 import { getOneItemRouterById } from "./routes/item/get-one";
 import { getAllItemsRouter } from "./routes/item/items";
 import { createItemRouter } from "./routes/item/create-item";
+import { createDiscountRouter } from "./routes/discounts/create-discount";
+import { getAllDiscountsRouter } from "./routes/discounts/discounts";
+import { getOneDiscountRouterByType } from "./routes/discounts/get-one";
 
 const app = express();
 app.set("trust proxy", true);
@@ -26,6 +29,9 @@ app.use(getOneUserRouterById);
 //Invoice
 
 //Discounts
+app.use(createDiscountRouter);
+app.use(getAllDiscountsRouter);
+app.use(getOneDiscountRouterByType);
 
 //Items
 app.use(createItemRouter);
