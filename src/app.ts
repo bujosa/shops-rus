@@ -9,6 +9,9 @@ import {
   getOneUserRouterById,
   getOneUserRouterByName,
 } from "./routes/user/get-one";
+import { getOneItemRouterById } from "./routes/item/get-one";
+import { getAllItemsRouter } from "./routes/item/items";
+import { createItemRouter } from "./routes/item/create-item";
 
 const app = express();
 app.set("trust proxy", true);
@@ -23,6 +26,11 @@ app.use(getOneUserRouterById);
 //Invoice
 
 //Discounts
+
+//Items
+app.use(createItemRouter);
+app.use(getAllItemsRouter);
+app.use(getOneItemRouterById);
 
 app.all("*", async (req, res) => {
   throw new NotFoundError();
