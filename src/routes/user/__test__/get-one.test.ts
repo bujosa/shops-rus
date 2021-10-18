@@ -21,7 +21,7 @@ describe("GET /user/:id", () => {
     console.log(user);
 
     const { body: fetchedUser } = await request(app)
-      .get(`/api/users/:${user.id}`)
+      .get(`/api/users/:${user._id}`)
       .send()
       .expect(200);
 
