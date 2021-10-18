@@ -14,7 +14,7 @@ const buildEntity = async () => {
   return await entity.save();
 };
 
-describe("GET /user/:id", () => {
+describe("GET /api/user/:id", () => {
   it("fetches the user", async () => {
     const user = await buildEntity();
 
@@ -31,6 +31,28 @@ describe("GET /user/:id", () => {
   it("throw message Not Found Error", async () => {
     await request(app)
       .get(`/api/user/${faker.lorem.word()}`)
+      .send({})
+      .expect({ errors: [{ message: "Not Found" }] });
+  });
+});
+
+describe("GET /api/user/get/:name", () => {
+  it("fetches the user", async () => {
+    const user = await buildEntity();
+
+    console.log(user);
+
+    const { body: fetchedUser } = await request(app)
+      .get(`/api/user/get/${user.fullName}`)
+      .send({})
+      .expect(200);
+
+    expect(fetchedUser.fullName).toEqual(user.fullName);
+  });
+
+  it("throw message Not Found Error", async () => {
+    await request(app)
+      .get(`/api/user/get/${faker.lorem.word()}`)
       .send({})
       .expect({ errors: [{ message: "Not Found" }] });
   });
