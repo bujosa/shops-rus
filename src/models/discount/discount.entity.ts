@@ -19,7 +19,7 @@ const discountSchema = new mongoose.Schema(
     },
     discount: {
       type: Number,
-      default: false,
+      required: true,
     },
     percentage: {
       type: Boolean,
