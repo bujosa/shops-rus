@@ -27,9 +27,7 @@ describe("GET /api/item/:id", () => {
   });
 
   it("return status code 404", async () => {
-    const item = await buildEntity();
-
-    const { body: fetchedItem } = await request(app)
+    await request(app)
       .get(`/api/items/${faker.lorem.word()}`)
       .send({})
       .expect(404);
