@@ -3,6 +3,13 @@
   "version": "1.0.0",
   "description": "ShopsRUs is a retail warehouse currently in operation. They would like to offer discounts to their clients on all your web / mobile platforms. They need to build a set of APIs that provide capabilities to calculate discounts, generate total costs, and generate invoices for customers",
   "main": "index.ts",
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "setupFilesAfterEnv": [
+      "./src/test/setup.ts"
+    ]
+  },
   "dependencies": {
     "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.13",
@@ -12,6 +19,7 @@
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
     "express-validator": "^6.12.2",
+    "faker": "^5.5.3",
     "mongoose": "^6.0.9",
     "mongoose-autopopulate": "^0.16.0",
     "ts-node-dev": "^1.1.8",
@@ -19,6 +27,7 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "@types/faker": "^5.5.9",
     "@types/jest": "^27.0.2",
     "@types/supertest": "^2.0.11",
     "jest": "^27.2.5",
@@ -33,13 +42,6 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bujosa/ShopsRus.git"
-  },
-  "jest": {
-    "preset": "ts-jest",
-    "testEnviroment": "node",
-    "setupFilesAfterEnv": [
-      "./src/test/setup.ts"
-    ]
   },
   "author": "Bujosa",
   "license": "ISC",
