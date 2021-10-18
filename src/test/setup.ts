@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 
 beforeAll(async () => {
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+  process.env.PORT = "3000";
 
   const mongoServer = await MongoMemoryServer.create();
 
