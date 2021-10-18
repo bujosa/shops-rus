@@ -1,39 +1,39 @@
 import request from "supertest";
 import * as faker from "faker";
-import { User } from "../../../models/user/user.entity";
 import { app } from "../../../app";
+import { Item } from "../../../models/item/item.entity";
+import { ItemType } from "../../../enums/item-type.enum";
 
 const buildEntity = async () => {
-  const entity = User.build({
-    fullName: faker.name.findName(),
-    affiliate: faker.datatype.boolean(),
-    employee: faker.datatype.boolean(),
-    createdAt: faker.date.past().toISOString(),
+  const entity = Item.build({
+    name: faker.name.findName(),
+    price: faker.datatype.number({ min: 100, max: 1000 }),
+    type: ItemType.FOOD,
   });
 
   return await entity.save();
 };
 
-describe("GET /api/users", () => {
-  it("Returns all tickets", async () => {
+describe("GET /api/items", () => {
+  it("Returns all items", async () => {
     await buildEntity();
     await buildEntity();
     await buildEntity();
 
-    const { body: fetchedUsers } = await request(app)
-      .get(`/api/users`)
+    const { body: fetchedItems } = await request(app)
+      .get(`/api/items`)
       .send({})
       .expect(200);
 
-    expect(fetchedUsers.length).toEqual(3);
+    expect(fetchedItems.length).toEqual(3);
   });
 
   it("return empty array", async () => {
-    const { body: fetchedUsers } = await request(app)
-      .get(`/api/users`)
+    const { body: fetchedItems } = await request(app)
+      .get(`/api/items`)
       .send({})
       .expect(200);
 
-    expect(fetchedUsers).toEqual([]);
+    expect(fetchedItems).toEqual([]);
   });
 });
