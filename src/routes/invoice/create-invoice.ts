@@ -1,9 +1,9 @@
 import express, { Request, Response } from "express";
 import { body } from "express-validator";
-import { ItemType } from "../../enums/item-type.enum";
 import { validateRequest } from "../../middlewares/validate-request";
 import { Invoice } from "../../models/invoice/invoice.entity";
 import { Item } from "../../models/item/item.entity";
+import { User } from "../../models/user/user.entity";
 
 const router = express.Router();
 
@@ -26,12 +26,21 @@ router.post(
   ],
   validateRequest,
   async (req: Request, res: Response) => {
-    const { client, items, discount } = req.body;
+    const { client: clientId, items, discount } = req.body;
+
+    const products = [];
+
+    const client = await User.findById(clientId);
+
+    items.forEach(async (item: string) => {
+      const product = await Item.findById(item);
+      products.push(product);
+    });
 
     let total = 0;
 
     const invoice = Invoice.build({
-      client,
+      client: clientId,
       items,
       discount,
       total,
