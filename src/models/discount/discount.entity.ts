@@ -6,6 +6,7 @@ export interface IDiscountModel extends mongoose.Model<IDiscountDoc> {
 }
 
 export interface IDiscountDoc extends mongoose.Document {
+  id: string;
   type: string;
   discount: boolean;
   percentage: boolean;
@@ -13,6 +14,9 @@ export interface IDiscountDoc extends mongoose.Document {
 
 const discountSchema = new mongoose.Schema(
   {
+    id: {
+      type: String,
+    },
     type: {
       type: String,
       required: true,
@@ -33,7 +37,6 @@ const discountSchema = new mongoose.Schema(
   {
     toJSON: {
       transform(doc, ret) {
-        ret.id = ret._id;
         delete ret._id;
         delete ret.__v;
       },
@@ -44,6 +47,12 @@ const discountSchema = new mongoose.Schema(
 discountSchema.statics.build = (discount: IDiscount) => {
   return new Discount(discount);
 };
+
+discountSchema.pre("save", function (next) {
+  this.id = this._id;
+
+  next();
+});
 
 const Discount = mongoose.model<IDiscountDoc, IDiscountModel>(
   "Discount",
