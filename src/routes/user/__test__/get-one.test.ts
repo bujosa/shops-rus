@@ -18,8 +18,6 @@ describe("GET /api/user/:id", () => {
   it("fetches the user", async () => {
     const user = await buildEntity();
 
-    console.log(user);
-
     const { body: fetchedUser } = await request(app)
       .get(`/api/user/${user.id}`)
       .send({})
@@ -39,8 +37,6 @@ describe("GET /api/user/:id", () => {
 describe("GET /api/user/get/:name", () => {
   it("fetches the user", async () => {
     const user = await buildEntity();
-
-    console.log(user);
 
     const { body: fetchedUser } = await request(app)
       .get(`/api/user/get/${user.fullName}`)
