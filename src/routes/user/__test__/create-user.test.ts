@@ -27,6 +27,6 @@ describe("POST /api/users", () => {
       createdAt: faker.date.past().toISOString(),
     };
 
-    request(app).post("/api/users").send(user).expect(400);
+    await request(app).post("/api/users").send(user).expect(400);
   });
 });
