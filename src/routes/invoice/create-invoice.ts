@@ -14,12 +14,12 @@ const router = express.Router();
 router.post(
   "/api/invoices",
   [
-    body("client").not().isEmpty().isUUID().withMessage("client is required"),
+    body("client").not().isEmpty().isString().withMessage("client is required"),
     body("items")
       .not()
       .isEmpty()
       .isArray()
-      .isUUID()
+      .isString()
       .withMessage("items is required"),
   ],
   validateRequest,
@@ -50,6 +50,7 @@ router.post(
 
     const total = calculateTotal(products, client);
 
+    console.log("total", total);
     const invoice = Invoice.build({
       client: clientId,
       items,
