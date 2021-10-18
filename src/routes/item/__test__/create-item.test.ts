@@ -1,32 +1,32 @@
 import request from "supertest";
 import * as faker from "faker";
 import { app } from "../../../app";
+import { IItem } from "../../../interfaces/item.interface";
+import { ItemType } from "../../../enums/item-type.enum";
 
-describe("POST /api/users", () => {
-  it("create user", async () => {
-    const user = {
-      fullName: faker.name.findName(),
-      affiliate: faker.datatype.boolean(),
-      employee: faker.datatype.boolean(),
-      createdAt: faker.date.past().toISOString(),
+describe("POST /api/items", () => {
+  it("create item", async () => {
+    const item: IItem = {
+      name: faker.name.findName(),
+      price: faker.datatype.number({ min: 100, max: 1000 }),
+      type: ItemType.FOOD,
     };
 
-    const { body: fetchedUser } = await request(app)
-      .post(`/api/users`)
-      .send(user)
+    const { body: fetchedItem } = await request(app)
+      .post(`/api/items`)
+      .send(item)
       .expect(201);
 
-    expect(fetchedUser.fullName).toEqual(user.fullName);
+    expect(fetchedItem.name).toEqual(item.name);
   });
 
-  it(" returns a 400 an invalid affiliate", async () => {
-    const user = {
-      fullName: faker.name.findName(),
-      affiliate: faker.datatype.boolean(),
-      employee: faker.lorem.word(),
-      createdAt: faker.date.past().toISOString(),
+  it(" returns a 400 an invalid type", async () => {
+    const item: IItem = {
+      name: faker.name.findName(),
+      price: faker.datatype.number({ min: 100, max: 1000 }),
+      type: faker.lorem.word(),
     };
 
-    request(app).post("/api/users").send(user).expect(400);
+    await request(app).post("/api/items").send(item).expect(400);
   });
 });
