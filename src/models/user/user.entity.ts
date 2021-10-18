@@ -6,6 +6,7 @@ export interface IUserModel extends mongoose.Model<IUserDoc> {
 }
 
 export interface IUserDoc extends mongoose.Document {
+  id: string;
   fullName: string;
   affiliate: boolean;
   employee: boolean;
@@ -14,6 +15,10 @@ export interface IUserDoc extends mongoose.Document {
 
 const userSchema = new mongoose.Schema(
   {
+    id: {
+      type: String,
+      required: true,
+    },
     fullName: {
       type: String,
       required: true,
@@ -34,7 +39,6 @@ const userSchema = new mongoose.Schema(
   {
     toJSON: {
       transform(doc, ret) {
-        ret.id = ret._id;
         delete ret._id;
         delete ret.__v;
       },
@@ -45,6 +49,12 @@ const userSchema = new mongoose.Schema(
 userSchema.statics.build = (user: IUser) => {
   return new User(user);
 };
+
+userSchema.pre("save", function (next) {
+  this.id = this._id;
+
+  next();
+});
 
 const User = mongoose.model<IUserDoc, IUserModel>("User", userSchema);
 
