@@ -2,6 +2,7 @@ import request from "supertest";
 import * as faker from "faker";
 import { User } from "../../../models/user/user.entity";
 import { app } from "../../../app";
+import { NotFoundError } from "../../../errors/not-found-error";
 
 const buildEntity = async () => {
   const entity = User.build({
@@ -26,5 +27,12 @@ describe("GET /user/:id", () => {
       .expect(200);
 
     expect(fetchedUser.fullName).toEqual(user.fullName);
+  });
+
+  it("throw message Not Found Error", async () => {
+    await request(app)
+      .get(`/api/user/${faker.lorem.word()}`)
+      .send({})
+      .expect({ errors: [{ message: "Not Found" }] });
   });
 });
