@@ -7,7 +7,7 @@ const getOneItemRouterById = express.Router();
 getOneItemRouterById.get(
   "/api/items/:id",
   async (req: Request, res: Response) => {
-    const item = await Item.findById(req.params.id);
+    const item = await Item.findOne({ id: req.params.id });
 
     if (!item) {
       throw new NotFoundError();
