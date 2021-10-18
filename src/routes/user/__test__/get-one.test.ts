@@ -21,10 +21,10 @@ describe("GET /user/:id", () => {
     console.log(user);
 
     const { body: fetchedUser } = await request(app)
-      .get(`/api/users/:${user._id}`)
-      .send()
+      .get(`/api/user/${user.id}`)
+      .send({})
       .expect(200);
 
-    expect(fetchedUser.id).toEqual(user.id);
+    expect(fetchedUser.fullName).toEqual(user.fullName);
   });
 });
