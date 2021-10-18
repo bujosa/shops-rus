@@ -7,6 +7,7 @@ export interface IItemModel extends mongoose.Model<IItemDoc> {
 }
 
 export interface IItemDoc extends mongoose.Document {
+  id: string;
   name: string;
   price: number;
   type: string;
@@ -14,6 +15,9 @@ export interface IItemDoc extends mongoose.Document {
 
 const itemSchema = new mongoose.Schema(
   {
+    id: {
+      type: String,
+    },
     name: {
       type: String,
       required: true,
@@ -35,7 +39,6 @@ const itemSchema = new mongoose.Schema(
   {
     toJSON: {
       transform(doc, ret) {
-        ret.id = ret._id;
         delete ret._id;
         delete ret.__v;
       },
@@ -46,6 +49,12 @@ const itemSchema = new mongoose.Schema(
 itemSchema.statics.build = (item: IItem) => {
   return new Item(item);
 };
+
+itemSchema.pre("save", function (next) {
+  this.id = this._id;
+
+  next();
+});
 
 const Item = mongoose.model<IItemDoc, IItemModel>("Item", itemSchema);
 
