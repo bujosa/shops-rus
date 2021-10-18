@@ -6,19 +6,13 @@ export interface IInvoiceModel extends mongoose.Model<IInvoice> {
 }
 
 export interface IInvoiceDoc extends mongoose.Document {
-  name: string;
-  price: number;
-  type: string;
+  client: string;
+  items: string[];
+  total: number;
 }
 
 const invoiceSchema = new mongoose.Schema(
   {
-    discount: {
-      required: true,
-      type: Schema.Types.ObjectId,
-      ref: "Discount",
-      autopopulate: { maxDepth: 1 },
-    },
     client: {
       required: true,
       type: Schema.Types.ObjectId,
